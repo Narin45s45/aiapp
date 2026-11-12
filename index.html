@@ -4,41 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Volex AI - Voice & Vision Assistant</title>
-    
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
 
-    <!-- 1. Official Telegram Mini App SDK -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- برقراری اتصال سریع پیش‌فرض با سرور کلودفلر -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
-    <!-- 2. Monetag SDK (Replace XXXXXX with your Monetag Zone ID) -->
-    <script src="https://libtl.com/sdk.js" data-zone="XXXXXX" data-sdk="show_XXXXXX"></script>
+    <!-- ۱. کتابخانه‌های اصلی از سرور پرسرعت Cloudflare (نسخه دقیق و بدون ریدایرکت) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.21/vue.global.prod.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.1/marked.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.358.0/umd/lucide.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" media="print" onload="this.media='all'">
 
-    <!-- 3. AdsGram SDK (Optional) -->
-    <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+    <!-- ۲. کتابخانه تلگرام و تبلیغات با ویژگی async (بدون قفل کردن صفحه) -->
+    <script src="https://telegram.org/js/telegram-web-app.js" async></script>
+    <script src="https://sad.adsgram.ai/js/sad.min.js" async></script>
+    <!-- در صورت دریافت کد Monetag، خط زیر را از حالت کامنت خارج کرده و عدد خود را بگذارید -->
+    <!-- <script src="https://libtl.com/sdk.js" data-zone="XXXXXX" data-sdk="show_XXXXXX" async></script> -->
 
     <script>
-        if (window.Telegram && window.Telegram.WebApp) {
-            window.Telegram.WebApp.ready();
-            window.Telegram.WebApp.expand();
-        }
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.Telegram && window.Telegram.WebApp) {
+                window.Telegram.WebApp.ready();
+                window.Telegram.WebApp.expand();
+            }
+        });
 
-        // Trigger ad on load (for testing Monetag or AdsGram)
+        // اجرای تبلیغ در پس‌زمینه بدون ایجاد تاخیر در باز شدن چت
         window.addEventListener('load', () => {
             setTimeout(() => {
-                // Monetag trigger
                 if (typeof show_XXXXXX === 'function') {
                     show_XXXXXX().catch(() => {});
                 }
-                // AdsGram trigger (if using AdsGram)
-                // if (window.Adsgram) {
-                //     window.Adsgram.init({ blockId: "int-58990" }).show().catch(() => {});
-                // }
-            }, 1000);
+                if (window.Adsgram) {
+                    window.Adsgram.init({ blockId: "int-58990" }).show().catch(() => {});
+                }
+            }, 1200);
         });
     </script>
-
     <!-- Global Standard CDNs -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
